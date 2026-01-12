@@ -36,6 +36,8 @@ const SEO = () => {
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={image} />
 
+      <link rel="canonical" href="https://khushboobynoorarts.vercel.app/" />
+
       {/* Schema.org JSON-LD */}
       <script type="application/ld+json">
         {JSON.stringify({
