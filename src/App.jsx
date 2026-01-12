@@ -52,7 +52,7 @@ function App() {
   return (
     <HelmetProvider>
       <SEO />
-      <div className="min-h-screen bg-ivory dark:bg-dark-bg">
+      <div className="min-h-screen bg-ivory dark:bg-dark-bg overflow-x-hidden w-full max-w-full">
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <Hero />
         <BulkOfferings />
