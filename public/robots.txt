@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khushboobynoorarts.com/sitemap.xml
