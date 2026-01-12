@@ -185,7 +185,7 @@ export const SEO_DATA = {
   title: `${BUSINESS_NAME} | Bulk Ladies' Clothes in Azam Market Lahore`,
   description: "Premium bulk stitched & unstitched ladies' wear in Azam Market, Lahore. High-quality embroidered lawn suits, organza kurtas, shalwar kameez, and festive outfits. Wholesale supplier for elegant women's ethnic wear.",
   keywords: "Khushboo By Noor Arts, khushboobynoorarts, khushbooarts, khushboonoorarts, khushboo by noor, noor arts, bulk stitched ladies clothes, unstitched ladies clothes Lahore, Azam Market wholesale, Pakistani women's clothing wholesale, embroidered lawn suits, organza kurtas, shalwar kameez, asian boutique, ladies fashion Lahore",
-  url: 'https://khushboobynoorarts.com',
+  url: 'https://khushboobynoorarts.vercel.app/',
   image: 'https://khushboobynoorarts.com/og-image.jpg',
   geo: {
     region: 'PK-PB',
