@@ -73,9 +73,7 @@ export const ABOUT = {
     {
       paragraph: `What sets us apart is our commitment to <strong>affordability without compromising on quality</strong>. We understand the needs of bulk buyers and ensure that every piece reflects the intricate craftsmanship and attention to detail that Pakistani fashion is renowned for.`,
     },
-    {
-      paragraph: `Located in the bustling Azam Market, we are easily accessible and offer a warm, welcoming environment where you can explore our collections at your leisure. Our team is dedicated to helping you find the perfect pieces that embody elegance and sophistication.`,
-    },
+    
   ],
   metrics: [
     { value: '10000', label: 'Happy Customers', suffix: '+' },
