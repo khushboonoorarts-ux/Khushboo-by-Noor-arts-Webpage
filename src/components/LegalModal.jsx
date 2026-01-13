@@ -41,34 +41,30 @@ const LegalModal = ({ isOpen, type, onClose }) => {
             {isPrivacy ? (
               <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
                 <p>
-                  This is a placeholder Privacy Policy. You can update this text with your own
-                  privacy details, including how you handle customer data, WhatsApp inquiries,
-                  and contact form submissions.
+                  Khushboobynoorarts respects your privacy. Any personal information collected through this website, such as name, contact details, 
+                  or business information, is used only to process inquiries, orders, and provide our services.
                 </p>
                 <p>
-                  Typically, you would describe what information you collect (such as name,
-                  email, phone number), how it is used, and how customers can contact you for
-                  any privacy-related questions.
+                  We do not sell, rent, or share your personal data with third parties, except where required for order fulfillment, shipping, or by law.
+                   We take reasonable measures to protect your information.
                 </p>
                 <p className="italic text-gray-500 dark:text-gray-400">
-                  Tip: Edit the content of <code>LegalModal.jsx</code> to add your actual
-                  Privacy Policy wording.
+                  By using this website, you consent to this Privacy Policy.
                 </p>
               </div>
             ) : (
               <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-gray-700 dark:text-gray-300">
                 <p>
-                  This is a placeholder Terms &amp; Conditions section. Use this area to outline
-                  the terms for wholesale orders, pricing, returns, and any other conditions
-                  relevant to Khushboo By Noor Arts.
+                  By accessing or using this website, you agree to the following terms. Khushboobynoorarts deals in the wholesale, bulk supply, and export of ladies suits.
+                   All product images and descriptions are for reference only and may vary slightly.
                 </p>
                 <p>
-                  You may want to include details about minimum order quantities, payment
-                  methods, delivery or pickup policies, and how disputes are handled.
+                  Prices, availability, and delivery timelines are subject to change without prior notice. Orders are confirmed only after payment terms and order details are mutually agreed upon. Bulk and customized orders are generally non-returnable and non-refundable.
+
+                    For export orders, buyers are responsible for applicable customs duties, taxes, and clearance charges. Khushboobynoorarts is not liable for delays caused by logistics, customs, or unforeseen circumstances.
                 </p>
                 <p className="italic text-gray-500 dark:text-gray-400">
-                  Tip: Edit the content of <code>LegalModal.jsx</code> to add your actual
-                  Terms &amp; Conditions wording.
+                  All website content and designs are the intellectual property of Khushboobynoorarts. Unauthorized use is prohibited. These terms are governed by applicable local laws.
                 </p>
               </div>
             )}
