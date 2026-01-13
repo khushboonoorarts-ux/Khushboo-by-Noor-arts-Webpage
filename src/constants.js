@@ -31,7 +31,7 @@ export const CONTACT = {
 export const SOCIAL_LINKS = {
   instagram: 'https://www.instagram.com/khusboobynoorarts?utm_source=qr&igsh=MWp2YzBydng2ZWcwMQ==',
   facebook: 'https://www.facebook.com/share/1D5H2MNb1F/',
-  twitter: 'https://www.twitter.com/khushboobynoorarts',
+  twitter: 'https://x.com/KhusbooA20985',
   tiktok: 'https://www.tiktok.com/@noor_artss?_r=1&_t=ZS-932cfF7jrJy',
 }
 
