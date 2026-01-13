@@ -30,9 +30,9 @@ export const CONTACT = {
 // Social Media Links
 export const SOCIAL_LINKS = {
   instagram: 'https://www.instagram.com/khusboobynoorarts?utm_source=qr&igsh=MWp2YzBydng2ZWcwMQ==',
-  facebook: 'https://www.facebook.com/khushboobynoorarts',
+  facebook: 'https://www.facebook.com/share/1D5H2MNb1F/',
   twitter: 'https://www.twitter.com/khushboobynoorarts',
-  tiktok: 'https://www.tiktok.com/@khushboobynoorarts',
+  tiktok: 'https://www.tiktok.com/@noor_artss?_r=1&_t=ZS-932cfF7jrJy',
 }
 
 // Navigation Items
