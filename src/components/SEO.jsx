@@ -80,6 +80,19 @@ const SEO = () => {
           "sameAs": Object.values(SOCIAL_LINKS)
         })}
       </script>
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": businessName,
+          "url": url,
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": `${url}?q={search_term_string}`,
+            "query-input": "required name=search_term_string"
+          }
+        })}
+      </script>
     </Helmet>
   )
 }
