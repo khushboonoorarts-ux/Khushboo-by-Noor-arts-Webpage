@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://khushboobynoorarts.com/sitemap.xml
+Sitemap: https://khushboobynoorarts.vercel.app/sitemap.xml
