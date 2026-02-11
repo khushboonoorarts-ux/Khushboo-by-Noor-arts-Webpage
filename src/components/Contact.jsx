@@ -30,18 +30,10 @@ const Contact = () => {
       const templateId = (import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '').trim()
       const publicKey = (import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '').trim()
 
-      console.log('--- EmailJS Debug Info ---')
-      console.log('Service ID Length:', serviceId.length)
-      console.log('Template ID Length:', templateId.length)
-      console.log('Public Key Length:', publicKey.length)
-      console.log('Public Key Starts With:', publicKey.substring(0, 3) + '...')
-      console.log('---------------------------')
-
       if (!serviceId || !templateId || !publicKey || serviceId === 'YOUR_SERVICE_ID') {
-        throw new Error('EmailJS configuration is missing or invalid. Please check your .env file.')
+        throw new Error('EmailJS configuration is missing or invalid.')
       }
 
-      // Initialize with public key to ensure authentication
       emailjs.init(publicKey)
 
       await emailjs.send(
@@ -68,73 +60,71 @@ const Contact = () => {
     }
   }
 
-  const socialIcons = {
-    Instagram: FaInstagram,
-    Facebook: FaFacebook,
-    Twitter: FaTwitter,
-    Tiktok: FaTiktok,
-  }
-
-  const brandColors = {
-    Instagram: 'hover:bg-[#E1306C] dark:hover:bg-[#E1306C]',
-    Facebook: 'hover:bg-[#1877F2] dark:hover:bg-[#1877F2]',
-    Twitter: 'hover:bg-[#1DA1F2] dark:hover:bg-[#1DA1F2]',
-    Tiktok: 'hover:bg-[#000000] dark:hover:bg-[#000000]',
-  }
-
-  const socialLinks = Object.entries(SOCIAL_LINKS).map(([key, url]) => {
-    const label = key.charAt(0).toUpperCase() + key.slice(1)
-    return {
-      icon: socialIcons[label] || FaInstagram,
-      url,
-      label,
-      hoverClass: brandColors[label] || 'hover:bg-emerald dark:hover:bg-emerald',
+  const getSocialIcon = (key) => {
+    switch (key.toLowerCase()) {
+      case 'instagram': return FaInstagram
+      case 'facebook': return FaFacebook
+      case 'twitter': return FaTwitter
+      case 'tiktok': return FaTiktok
+      default: return FaInstagram
     }
-  })
+  }
+
+  const getSocialClasses = (key) => {
+    switch (key.toLowerCase()) {
+      case 'instagram':
+        return 'bg-[#E4405F] text-white shadow-lg shadow-[#E4405F]/30 md:bg-white/30 md:dark:bg-gold/5 md:text-slate-600 md:dark:text-slate-300 md:shadow-none md:hover:bg-[#E4405F] md:hover:text-white md:hover:shadow-[#E4405F]/40'
+      case 'facebook':
+        return 'bg-[#1877F2] text-white shadow-lg shadow-[#1877F2]/30 md:bg-white/30 md:dark:bg-gold/5 md:text-slate-600 md:dark:text-slate-300 md:shadow-none md:hover:bg-[#1877F2] md:hover:text-white md:hover:shadow-[#1877F2]/40'
+      case 'twitter':
+        return 'bg-[#1DA1F2] text-white shadow-lg shadow-[#1DA1F2]/30 md:bg-white/30 md:dark:bg-gold/5 md:text-slate-600 md:dark:text-slate-300 md:shadow-none md:hover:bg-[#1DA1F2] md:hover:text-white md:hover:shadow-[#1DA1F2]/40'
+      case 'tiktok':
+        return 'bg-black text-white dark:bg-white dark:text-black shadow-lg shadow-black/20 md:bg-white/30 md:dark:bg-gold/5 md:text-slate-600 md:dark:text-slate-300 md:shadow-none md:hover:bg-black md:dark:hover:bg-white md:hover:text-white md:dark:hover:text-black md:hover:shadow-white/20'
+      default:
+        return 'bg-magenta text-white md:bg-white/30 md:dark:bg-gold/5 md:text-slate-600 md:dark:text-slate-300 md:hover:bg-magenta md:hover:text-white'
+    }
+  }
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-ivory to-blush-pink dark:from-dark-bg dark:to-gray-900">
-      <div className="container mx-auto px-4">
+    <section id="contact" className="relative py-12 md:py-24 overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="max-w-3xl mb-10 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-magenta dark:text-gold mb-3 sm:mb-4">
+          <h2 className="section-title !text-left !ml-0 after:!left-0 after:!translate-x-0">
             {CONTACT_SECTION.heading}
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
             {CONTACT_SECTION.description}
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Information */}
+        <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+          {/* Contact Details & Socials */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
+            transition={{ duration: 1 }}
+            className="space-y-8"
           >
-            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
-              <h3 className="text-xl sm:text-2xl font-serif text-gray-800 dark:text-white mb-4 sm:mb-6">
-                Contact Information
-              </h3>
+            <div className="glass p-10 rounded-3xl relative overflow-hidden">
+              <h3 className="text-2xl font-serif text-slate-800 dark:text-white mb-8">Get in Touch</h3>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <a
                   href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
-                  className="flex items-center gap-4 p-4 bg-blush-pink dark:bg-gray-700 rounded-xl hover:bg-magenta hover:text-white dark:hover:bg-gold transition-all group"
+                  className="flex items-center gap-6 group no-underline"
                 >
-                  <FaPhone className="text-2xl text-magenta dark:text-gold group-hover:text-white dark:group-hover:text-dark-bg" />
+                  <div className="w-14 h-14 rounded-2xl bg-magenta/10 text-magenta flex items-center justify-center group-hover:bg-magenta group-hover:text-white transition-all duration-300">
+                    <FaPhone size={20} />
+                  </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Phone</p>
-                    <p className="font-semibold text-gray-800 dark:text-white group-hover:text-white dark:group-hover:text-dark-bg">
-                      {CONTACT.phone}
-                    </p>
+                    <p className="text-sm text-slate-400 uppercase tracking-widest font-medium">Direct Call</p>
+                    <p className="text-xl text-slate-700 dark:text-slate-100 font-medium">{CONTACT.phone}</p>
                   </div>
                 </a>
 
@@ -142,47 +132,49 @@ const Contact = () => {
                   href={`https://wa.me/${CONTACT.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 bg-blush-pink dark:bg-gray-700 rounded-xl hover:bg-emerald hover:text-white transition-all group"
+                  className="flex items-center gap-6 group no-underline"
                 >
-                  <FaWhatsapp className="text-2xl text-emerald group-hover:text-white" />
+                  <div className="w-14 h-14 rounded-2xl bg-emerald/10 text-emerald flex items-center justify-center group-hover:bg-emerald group-hover:text-white transition-all duration-300">
+                    <FaWhatsapp size={24} />
+                  </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">WhatsApp</p>
-                    <p className="font-semibold text-gray-800 dark:text-white group-hover:text-white">
-                      {CONTACT.phone}
-                    </p>
+                    <p className="text-sm text-slate-400 uppercase tracking-widest font-medium">WhatsApp</p>
+                    <p className="text-xl text-slate-700 dark:text-slate-100 font-medium">Chat with us</p>
                   </div>
                 </a>
 
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="flex items-center gap-4 p-4 bg-blush-pink dark:bg-gray-700 rounded-xl hover:bg-magenta hover:text-white dark:hover:bg-gold transition-all group"
-                  title="Send us an email"
+                  className="flex items-center gap-6 group no-underline"
                 >
-                  <FaEnvelope className="text-2xl text-magenta dark:text-gold group-hover:text-white dark:group-hover:text-dark-bg" />
+                  <div className="w-14 h-14 rounded-2xl bg-gold/10 text-gold flex items-center justify-center group-hover:bg-gold group-hover:text-white transition-all duration-300">
+                    <FaEnvelope size={22} />
+                  </div>
                   <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Email</p>
-                    <p className="font-semibold text-gray-800 dark:text-white group-hover:text-white dark:group-hover:text-dark-bg break-all">
+                    <p className="text-sm text-slate-400 uppercase tracking-widest font-medium">Email Reach</p>
+                    <p className="text-lg text-slate-700 dark:text-slate-100 font-medium truncate max-w-[200px] md:max-w-none">
                       {CONTACT.email}
                     </p>
                   </div>
                 </a>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-gray-300 dark:border-gray-600">
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Follow Us</p>
+              <div className="mt-12 pt-10 border-t border-slate-200 dark:border-slate-700">
+                <p className="text-sm text-slate-400 uppercase tracking-widest font-medium mb-6">Social Gallery</p>
                 <div className="flex gap-4">
-                  {socialLinks.map((social) => {
-                    const Icon = social.icon
+                  {Object.entries(SOCIAL_LINKS).map(([key, url]) => {
+                    const Icon = getSocialIcon(key)
+                    const classes = getSocialClasses(key)
                     return (
                       <a
-                        key={social.label}
-                        href={social.url}
+                        key={key}
+                        href={url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`w-12 h-12 bg-magenta dark:bg-gold text-white rounded-full flex items-center justify-center ${social.hoverClass} transition-all transform hover:scale-110`}
-                        aria-label={social.label}
+                        className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 md:hover:-translate-y-1 md:glass ${classes}`}
+                        aria-label={key}
                       >
-                        <Icon />
+                        <Icon size={20} />
                       </a>
                     )
                   })}
@@ -191,24 +183,16 @@ const Contact = () => {
             </div>
           </motion.div>
 
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1 }}
           >
-            <form
-              onSubmit={handleSubmit}
-              className="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg"
-            >
+            <form onSubmit={handleSubmit} className="glass p-10 rounded-3xl relative">
               <div className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
-                  >
-                    {CONTACT_SECTION.formLabels.name}
-                  </label>
+                <div className="relative">
                   <input
                     type="text"
                     id="name"
@@ -216,17 +200,18 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-magenta dark:focus:ring-gold"
+                    placeholder=" "
+                    className="peer w-full px-0 py-3 bg-transparent border-b-2 border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-magenta dark:focus:border-gold/60 transition-colors placeholder-transparent"
                   />
+                  <label
+                    htmlFor="name"
+                    className="absolute left-0 -top-3.5 text-slate-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-magenta dark:peer-focus:text-gold peer-focus:text-sm"
+                  >
+                    {CONTACT_SECTION.formLabels.name}
+                  </label>
                 </div>
 
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
-                  >
-                    {CONTACT_SECTION.formLabels.email}
-                  </label>
+                <div className="relative">
                   <input
                     type="email"
                     id="email"
@@ -234,44 +219,60 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-magenta dark:focus:ring-gold"
+                    placeholder=" "
+                    className="peer w-full px-0 py-3 bg-transparent border-b-2 border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-magenta dark:focus:border-gold/60 transition-colors placeholder-transparent"
                   />
+                  <label
+                    htmlFor="email"
+                    className="absolute left-0 -top-3.5 text-slate-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-magenta dark:peer-focus:text-gold peer-focus:text-sm"
+                  >
+                    {CONTACT_SECTION.formLabels.email}
+                  </label>
                 </div>
 
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
-                  >
-                    {CONTACT_SECTION.formLabels.message}
-                  </label>
+                <div className="relative">
                   <textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows="5"
-                    className="w-full px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-magenta dark:focus:ring-gold resize-none"
+                    rows="4"
+                    placeholder=" "
+                    className="peer w-full px-0 py-3 bg-transparent border-b-2 border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-magenta dark:focus:border-gold/60 transition-colors placeholder-transparent resize-none"
                   />
+                  <label
+                    htmlFor="message"
+                    className="absolute left-0 -top-3.5 text-slate-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-magenta dark:peer-focus:text-gold peer-focus:text-sm"
+                  >
+                    {CONTACT_SECTION.formLabels.message}
+                  </label>
                 </div>
 
                 {submitStatus === 'success' && (
-                  <div className="p-4 bg-emerald/20 border border-emerald rounded-xl text-emerald">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-4 bg-emerald/10 border border-emerald/20 rounded-2xl text-emerald text-sm"
+                  >
                     {CONTACT_SECTION.formMessages.success}
-                  </div>
+                  </motion.div>
                 )}
 
                 {submitStatus === 'error' && (
-                  <div className="p-4 bg-red-500/20 border border-red-500 rounded-xl text-red-500">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm"
+                  >
                     {CONTACT_SECTION.formMessages.error}
-                  </div>
+                  </motion.div>
                 )}
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-magenta hover:bg-magenta/90 dark:bg-gold dark:hover:bg-gold/90 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-premium w-full shadow-xl disabled:opacity-50 disabled:cursor-not-allowed mt-4"
                 >
                   {isSubmitting ? CONTACT_SECTION.formMessages.sending : CONTACT_SECTION.formMessages.sendButton}
                 </button>

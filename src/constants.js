@@ -73,7 +73,7 @@ export const ABOUT = {
     {
       paragraph: `What sets us apart is our commitment to <strong>affordability without compromising on quality</strong>. We understand the needs of bulk buyers and ensure that every piece reflects the intricate craftsmanship and attention to detail that Pakistani fashion is renowned for.`,
     },
-    
+
   ],
   metrics: [
     { value: '10000', label: 'Happy Customers', suffix: '+' },
@@ -124,7 +124,7 @@ export const COLLABORATIONS = {
     { name: 'Alkaram Studio', description: 'Premium bulk supplier for Alkaram.', logo: '/assets/brand-logo-7.png' },
     { name: 'Asim Jofa', description: 'Exclusive bulk orders for Asim Jofa designs.', logo: '/assets/brand-logo-8.png' },
     { name: 'Nishat Linen', description: 'Wholesale of Nishat Linen fabrics.', logo: '/assets/brand-logo-9.png' },
-    { name: 'Ethnic by Outfitters', description: 'Bulk supply of Ethnic by Outfitters collections.', logo: '/assets/brand-logo-10.png' },
+    { name: 'Ethnic ', description: 'Bulk supply of Ethnic by Outfitters collections.', logo: '/assets/brand-logo-10.png' },
     { name: 'BIBA', description: 'Wholesale partner for BIBA apparel.', logo: '/assets/brand-logo-11.png' },
     { name: 'Libas', description: 'Bulk orders for Libas fashion.', logo: '/assets/brand-logo-12.png' },
     { name: 'Tawakkal', description: 'Providing bulk supplies from Tawakkal.', logo: '/assets/brand-logo-13.png' },

@@ -2,50 +2,52 @@ import { motion } from 'framer-motion'
 
 const LoadingScreen = () => {
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-blush-pink via-ivory to-gold flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-ivory dark:bg-slate-900 flex items-center justify-center z-[100]">
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className="text-center"
       >
-        <motion.h1
-          className="text-5xl md:text-7xl font-serif text-magenta mb-4 loading-logo"
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          Khushboo
-        </motion.h1>
-        <motion.p
-          className="text-xl md:text-2xl font-sans text-gray-700"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          By Noor Arts
-        </motion.p>
         <motion.div
-          className="mt-8 flex justify-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="relative"
         >
+          <h1 className="text-6xl md:text-8xl font-serif text-slate-800 dark:text-white mb-2 tracking-tighter">
+            Khushboo
+          </h1>
+          <p className="text-sm uppercase tracking-[0.5em] text-magenta dark:text-gold font-medium ml-2">
+            By Noor Arts
+          </p>
+
+          {/* Animated Line */}
           <motion.div
-            className="w-3 h-3 bg-magenta rounded-full"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-          />
-          <motion.div
-            className="w-3 h-3 bg-gold rounded-full"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-          />
-          <motion.div
-            className="w-3 h-3 bg-emerald rounded-full"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
+            className="absolute -bottom-4 left-0 h-[1px] bg-gradient-to-r from-transparent via-magenta dark:via-gold to-transparent"
+            initial={{ width: 0, left: "50%" }}
+            animate={{ width: "100%", left: "0%" }}
+            transition={{ duration: 1.5, delay: 0.5 }}
           />
         </motion.div>
+
+        <div className="mt-16 flex justify-center gap-3">
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              className="w-1.5 h-1.5 bg-slate-400 dark:bg-slate-600 rounded-full"
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [0.3, 1, 0.3]
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                delay: i * 0.2
+              }}
+            />
+          ))}
+        </div>
       </motion.div>
     </div>
   )

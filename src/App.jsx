@@ -52,14 +52,17 @@ function App() {
   return (
     <HelmetProvider>
       <SEO />
-      <div className="min-h-screen bg-ivory dark:bg-dark-bg overflow-x-hidden w-full max-w-full">
+      <div className="relative min-h-screen text-slate-800 dark:text-slate-100 transition-colors duration-500">
+        <div className="mesh-gradient" />
         <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <Hero />
-        <BulkOfferings />
-        <About />
-        <Collaborations />
-        <Location />
-        <Contact />
+        <main className="relative z-10">
+          <Hero />
+          <BulkOfferings />
+          <About />
+          <Collaborations />
+          <Location />
+          <Contact />
+        </main>
         <Footer
           onOpenPrivacy={() => setLegalModal({ open: true, type: 'privacy' })}
           onOpenTerms={() => setLegalModal({ open: true, type: 'terms' })}

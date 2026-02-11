@@ -3,73 +3,132 @@ import { COLLABORATIONS } from '../constants'
 
 const Collaborations = () => {
   const brands = COLLABORATIONS.brands
+  const midPoint = Math.ceil(brands.length / 2)
+  const row1 = brands.slice(0, midPoint)
+  const row2 = brands.slice(midPoint)
 
-  // Duplicate brands for seamless infinite scroll
-  const brandsRow1 = [...brands, ...brands, ...brands] // Triplicate for more variety
-  const brandsRow2 = [...brands, ...brands, ...brands].reverse() // Triplicate and reverse for variety
+  // Triple the rows for a seamless infinite marquee
+  const marqueeRow1 = [...row1, ...row1, ...row1]
+  const marqueeRow2 = [...row2, ...row2, ...row2]
+
+  const containerVariants = {
+    animate: {
+      transition: {
+        staggerChildren: 0.05
+      }
+    }
+  }
+
+  const logoVariants = {
+    initial: {
+      scale: 0.9,
+      opacity: 0.6,
+      borderColor: 'rgba(201,169,110,0.1)',
+      filter: 'grayscale(100%)'
+    },
+    animate: {
+      scale: 1,
+      opacity: 0.9,
+      borderColor: 'rgba(201,169,110,0.3)',
+      filter: 'grayscale(0%)',
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  }
 
   return (
-    <section id="collaborations" className="py-20 bg-gradient-to-b from-blush-pink to-ivory dark:from-gray-900 dark:to-dark-bg overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section id="collaborations" className="relative py-12 md:py-24 overflow-hidden">
+      {/* Background Decorative Accents */}
+      <div className="absolute top-1/2 left-0 w-64 h-64 bg-magenta/5 rounded-full blur-[80px] -z-10" />
+      <div className="absolute bottom-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-[80px] -z-10" />
+
+      <div className="container mx-auto px-6 relative z-10 text-center mb-8 md:mb-20">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="max-w-4xl mx-auto"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-magenta dark:text-gold mb-3 sm:mb-4">
-            {COLLABORATIONS.heading}
-          </h2>
-          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <h2 className="section-title">{COLLABORATIONS.heading}</h2>
+          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
             {COLLABORATIONS.description}
           </p>
         </motion.div>
       </div>
 
-      {/* Scrolling Brand Logos - Row 1 (Leftward) */}
-      <div className="marquee-wrapper py-6 md:py-8 [mask-image:_linear-gradient(to_right,transparent_0%,theme(colors.white)_10%,theme(colors.white)_90%,transparent_100%)]">
-        <div className="marquee-content marquee-left-animation">
-          {brandsRow1.map((brand, index) => (
+      {/* Row 1: Left to Right */}
+      <motion.div
+        variants={containerVariants}
+        whileInView="animate"
+        initial="initial"
+        viewport={{ once: false, amount: 0.3 }}
+        className="marquee-wrapper pt-14 pb-4 md:py-10 [mask-image:linear-gradient(to_right,transparent_0%,white_20%,white_80%,transparent_100%)]"
+      >
+        <div className="animate-marquee items-center gap-8 md:gap-12 px-12">
+          {marqueeRow1.map((brand, index) => (
             <motion.div
               key={`row1-${brand.name}-${index}`}
-              className="marquee-item bg-gradient-to-br from-white via-blush-pink/30 to-ivory/50 dark:from-gray-800 dark:via-gray-700/50 dark:to-gray-800 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform backdrop-blur-sm border border-white/50 dark:border-gray-700/50"
+              variants={logoVariants}
+              className="flex flex-col items-center flex-shrink-0 group relative"
             >
-              <img
-                src={brand.logo}
-                alt={`${brand.name} logo`}
-                className="w-full h-16 object-contain transition-all duration-300"
-                loading="lazy"
-              />
-              <p className="text-center text-sm font-semibold text-gray-700 dark:text-gray-300 mt-2">
-                {brand.name}
-              </p>
+              {/* Name Label - Positioned TOP for Row 1 */}
+              <div className="absolute -top-12 md:-top-10 left-1/2 -translate-x-1/2 opacity-100 md:opacity-0 group-hover:md:opacity-100 transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 whitespace-nowrap z-20">
+                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gold font-bold bg-white/90 dark:bg-slate-900/90 px-3 py-1 rounded-full border border-gold/30 shadow-lg backdrop-blur-sm">
+                  {brand.name}
+                </span>
+              </div>
+
+              <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full glass border-2 p-2 transition-all duration-500 bg-white/30 dark:bg-gold/5 group-hover:scale-110 group-hover:border-gold/60 group-hover:shadow-[0_0_20px_rgba(201,169,110,0.4)]">
+                <div className="w-full h-full rounded-full overflow-hidden bg-white/80 dark:bg-white/5 flex items-center justify-center p-3">
+                  <img
+                    src={brand.logo}
+                    alt={`${brand.name} logo`}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
-      {/* Scrolling Brand Logos - Row 2 (Rightward) */}
-      <div className="marquee-wrapper py-6 md:py-8 [mask-image:_linear-gradient(to_left,transparent_0%,theme(colors.white)_10%,theme(colors.white)_90%,transparent_100%)] mt-4">
-        <div className="marquee-content marquee-right-animation">
-          {brandsRow2.map((brand, index) => (
+      {/* Row 2: Right to Left */}
+      <motion.div
+        variants={containerVariants}
+        whileInView="animate"
+        initial="initial"
+        viewport={{ once: false, amount: 0.3 }}
+        className="marquee-wrapper pt-4 pb-14 md:py-10 [mask-image:linear-gradient(to_right,transparent_0%,white_20%,white_80%,transparent_100%)]"
+      >
+        <div className="animate-marquee-reverse items-center gap-8 md:gap-12 px-12">
+          {marqueeRow2.map((brand, index) => (
             <motion.div
               key={`row2-${brand.name}-${index}`}
-              className="marquee-item bg-gradient-to-br from-white via-blush-pink/30 to-ivory/50 dark:from-gray-800 dark:via-gray-700/50 dark:to-gray-800 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform backdrop-blur-sm border border-white/50 dark:border-gray-700/50"
+              variants={logoVariants}
+              className="flex flex-col items-center flex-shrink-0 group relative"
             >
-              <img
-                src={brand.logo}
-                alt={`${brand.name} logo`}
-                className="w-full h-16 object-contain transition-all duration-300"
-                loading="lazy"
-              />
-              <p className="text-center text-sm font-semibold text-gray-700 dark:text-gray-300 mt-2">
-                {brand.name}
-              </p>
+              <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full glass border-2 p-2 transition-all duration-500 bg-white/30 dark:bg-gold/5 group-hover:scale-110 group-hover:border-gold/60 group-hover:shadow-[0_0_20px_rgba(201,169,110,0.4)]">
+                <div className="w-full h-full rounded-full overflow-hidden bg-white/80 dark:bg-white/5 flex items-center justify-center p-3">
+                  <img
+                    src={brand.logo}
+                    alt={`${brand.name} logo`}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </div>
+
+              {/* Name Label - Positioned BOTTOM for Row 2 */}
+              <div className="absolute -bottom-12 md:-bottom-10 left-1/2 -translate-x-1/2 opacity-100 md:opacity-0 group-hover:md:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 whitespace-nowrap z-20">
+                <span className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-gold font-bold bg-white/90 dark:bg-slate-900/90 px-3 py-1 rounded-full border border-gold/30 shadow-lg backdrop-blur-sm">
+                  {brand.name}
+                </span>
+              </div>
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

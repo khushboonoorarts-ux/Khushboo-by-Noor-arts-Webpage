@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --ivory: #FFFFF0;
+  --blush: #F5E1E9;
+  --magenta: #D81B60;
+  --gold: #C9A96E;
+  --emerald: #006400;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,169 +20,236 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   width: 100%;
-  max-width: 100vw;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #FFFFF0;
-  color: #333;
+  background-color: var(--ivory);
+  color: #1a1a1a;
   overflow-x: hidden;
   width: 100%;
-  max-width: 100vw;
   position: relative;
+  line-height: 1.6;
 }
 
 .dark body {
-  background-color: #1a1a1a;
-  color: #e5e5e5;
+  background-color: #05080f;
+  color: #e2e8f0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Playfair Display', serif;
+  color: #0f172a;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #ffffff;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
-::-webkit-scrollbar-track {
-  background: #F5E1E9;
+.dark ::-webkit-scrollbar-track {
+  background: #0a0f1a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D81B60;
-  border-radius: 5px;
+  background: var(--magenta);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border: 2px solid #0a0f1a;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C9A96E;
+  background: var(--gold);
 }
 
-/* Glassmorphism utility */
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* Botanical Mesh Gradient Background */
+.mesh-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--ivory);
+  background-image:
+    radial-gradient(at 0% 0%, hsla(337, 34%, 92%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(41, 48%, 61%, 0.1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(337, 34%, 92%, 1) 0, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(41, 48%, 61%, 0.1) 0, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(337, 34%, 92%, 1) 0, transparent 50%);
+  filter: blur(100px);
+  animation: mesh-move 20s ease infinite alternate;
+}
+
+.dark .mesh-gradient {
+  background-color: #05080f;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(337, 34%, 10%, 0.6) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(41, 48%, 10%, 0.3) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(337, 34%, 10%, 0.6) 0, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(41, 48%, 10%, 0.3) 0, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(337, 34%, 10%, 0.6) 0, transparent 50%);
+}
+
+@keyframes mesh-move {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  50% {
+    transform: scale(1.1) translate(-2%, 2%);
+  }
+
+  100% {
+    transform: scale(1.05) translate(1%, -1%);
+  }
+}
+
+/* Refined Glassmorphism */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
 }
 
 .dark .glass {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 15, 26, 0.7);
+  border: 1px solid rgba(201, 169, 110, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
 
-/* Smooth transitions */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* Buttons and Links */
+.btn-premium {
+  @apply relative overflow-hidden px-8 py-4 rounded-full font-semibold transition-all duration-500 bg-magenta text-white hover:shadow-2xl hover:shadow-magenta/30 hover:-translate-y-1 active:scale-95;
 }
 
-/* Loading animation */
-@keyframes embroider {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+.btn-premium::after {
+  content: '';
+  @apply absolute inset-0 bg-white/20 transform -translate-x-full skew-x-12 transition-transform duration-700 pointer-events-none;
 }
 
-.loading-logo {
-  animation: embroider 2s ease-in-out infinite;
+.btn-premium:hover::after {
+  @apply translate-x-full;
 }
 
-/* Responsive image utilities */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Ensure images maintain aspect ratio */
-.hero-image,
-.collection-image,
-.about-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-/* Prevent image overflow on mobile */
-@media (max-width: 640px) {
-  img {
-    max-width: 100%;
-  }
-}
-
-/* Prevent horizontal overflow globally */
-#root {
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-/* Ensure all containers don't exceed viewport */
+/* Sections */
 section {
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
+  @apply py-20 px-4 md:px-8;
 }
 
-/* Prevent marquee from causing horizontal scroll */
-.marquee-wrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  max-width: 100vw;
+.section-title {
+  @apply text-4xl md:text-6xl font-serif mb-12 text-center relative text-slate-900 dark:text-white;
+  letter-spacing: -0.02em;
 }
 
-.marquee-content {
+.section-title::after {
+  content: '';
+  @apply absolute -bottom-6 left-1/2 -translate-x-1/2 w-32 h-1 bg-gold rounded-full;
+}
+
+/* Hero Slide Transition */
+.slick-fade .slick-slide {
+  transition: opacity 1s ease-in-out !important;
+}
+
+/* Animations */
+@keyframes slide-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-reveal {
+  animation: slide-reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+/* Infinite Marquee Animations */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-scroll-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee {
   display: flex;
-  min-width: 8000px; /* Explicitly set a very large min-width to force overflow */
-  white-space: nowrap;
-  animation-play-state: running;
-  will-change: transform;
-  /* This element should overflow, but the wrapper should hide it */
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
 }
 
-/* Marquee Animations for Collaborations Section */
-@keyframes marquee-left {
-  0% {
-    transform: translateX(0%);
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll-reverse 40s linear infinite;
+}
+
+.pause-hover:hover {
+  animation-play-state: paused;
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  section {
+    @apply py-12;
   }
-  100% {
-    transform: translateX(-50%); /* Scroll one full set of duplicated items */
+
+  .section-title {
+    @apply text-3xl mb-6;
   }
 }
 
-@keyframes marquee-right {
-  0% {
-    transform: translateX(-50%); /* Start from the middle of duplicated content */
-  }
-  100% {
-    transform: translateX(0%);
-  }
+/* Slider Progress Indicator Styling (Custom Dots) */
+.offerings-slider-container .slick-dots {
+  bottom: -40px;
 }
 
-.marquee-left-animation {
-  animation: marquee-left 30s linear infinite; /* Adjust duration as needed */
+.offerings-slider-container .slick-dots li button:before {
+  color: #C9A96E;
+  opacity: 0.25;
+  font-size: 10px;
 }
 
-.marquee-right-animation {
-  animation: marquee-right 30s linear infinite; /* Adjust duration as needed */
-}
-
-.marquee-item {
-  flex-shrink: 0; /* Prevent items from shrinking */
-  width: 16rem; /* w-64, increased from w-48 */
-  margin-left: 1.25rem; /* mx-5 */
-  margin-right: 1.25rem; /* mx-5 */
-}
-
-@keyframes pulse-custom {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.animate-pulse-custom {
-  animation: pulse-custom 2s infinite ease-in-out;
+.offerings-slider-container .slick-dots li.slick-active button:before {
+  color: #C9A96E;
+  opacity: 1;
 }

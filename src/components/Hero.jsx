@@ -7,105 +7,106 @@ import { HERO, BUSINESS_NAME } from '../constants'
 
 const Hero = () => {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 1000, // Slower transition for a more cinematic feel
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000, // Display each slide for 5 seconds
+    autoplaySpeed: 4000,
     fade: true,
-    cssEase: 'ease-in-out', // Smooth fading
+    cssEase: 'cubic-bezier(0.7, 0, 0.3, 1)',
     arrows: false,
-    pauseOnHover: false, // Keep playing on hover
+    pauseOnHover: false,
   }
 
   const { tagline, description, buttonText, buttonLink, images } = HERO
 
   return (
-    <section id="hero" className="relative h-screen w-full overflow-hidden">
-      {/* Image Slider Background */}
+    <section id="hero" className="relative h-screen w-full overflow-hidden p-0">
+      {/* Background Slider */}
       <Slider {...settings} className="h-full w-full">
         {images.map((img, index) => (
-          <div key={index} className="h-screen w-full">
+          <div key={`hero-slide-${index}`} className="relative h-screen w-full">
             <img
               src={img}
-              alt={`${BUSINESS_NAME} Hero Image ${index + 1}`}
-              className="w-full h-full object-cover object-center absolute inset-0"
-              loading="eager"
+              alt={`${BUSINESS_NAME} Hero ${index + 1}`}
+              className="w-full h-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+              {...(index === 0 ? { fetchpriority: "high" } : {})}
             />
-            <div className="absolute inset-0 bg-black/30" /> {/* Dark overlay for text readability */}
+            {/* Visual Sophistication Mask */}
+            <div className="absolute inset-0 bg-gradient-to-t from-ivory/80 via-transparent to-transparent md:bg-gradient-to-r md:from-ivory/40 md:to-transparent" />
           </div>
         ))}
       </Slider>
 
-      {/* Overlay Content */}
-      <div className="absolute inset-0 flex flex-col justify-end md:justify-center items-center text-white z-20 pb-16 md:pb-0">
-        <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto bg-black/40 p-6 md:p-8 rounded-lg shadow-xl"
-          >
-            <motion.h1
-              className="text-3xl md:text-5xl lg:text-6xl font-serif mb-2 md:mb-4 leading-tight drop-shadow-lg"
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              {tagline}
-            </motion.h1>
-            <motion.p
-              className="text-base md:text-xl lg:text-2xl font-sans mb-6 md:mb-8 font-light drop-shadow-md max-w-full mx-auto"
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              {description}
-            </motion.p>
+      {/* Hero Content */}
+      <div className="absolute inset-x-0 bottom-0 md:inset-0 flex items-end md:items-center z-20 pb-12 md:pb-0 px-6">
+        <div className="container mx-auto">
+          <div className="max-w-3xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Link
-                to={buttonLink}
-                spy={true}
-                smooth={true}
-                offset={-80}
-                duration={500}
-                className="inline-block bg-magenta hover:bg-magenta/90 text-white px-6 py-3 md:px-10 md:py-5 rounded-full font-semibold text-base md:text-xl transition-all transform hover:scale-105 shadow-lg cursor-pointer"
-              >
-                {buttonText}
-              </Link>
+              <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif text-slate-900 leading-[1.1] mb-6">
+                <span className="block text-magenta/80 text-xl md:text-2xl font-sans uppercase tracking-[0.3em] font-semibold mb-4">
+                  Welcome to
+                </span>
+                {tagline.split(' ').map((word, i) => (
+                  <span key={i} className="inline-block mr-4 last:mr-0">
+                    {word}
+                  </span>
+                ))}
+              </h1>
+
+              <p className="text-lg md:text-xl text-slate-700 max-w-xl mb-10 font-sans leading-relaxed">
+                {description}
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  to={buttonLink}
+                  spy={true}
+                  smooth={true}
+                  offset={-80}
+                  duration={500}
+                  className="btn-premium cursor-pointer"
+                >
+                  {buttonText}
+                </Link>
+                <Link
+                  to="bulk-offerings"
+                  spy={true}
+                  smooth={true}
+                  offset={-80}
+                  duration={500}
+                  className="px-8 py-4 rounded-full font-semibold border-2 border-magenta text-magenta hover:bg-magenta hover:text-white transition-all duration-300 cursor-pointer"
+                >
+                  Explore Bulk
+                </Link>
+              </div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <Link
-        to="bulk-offerings"
-        spy={true}
-        smooth={true}
-        offset={-80}
-        duration={500}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 cursor-pointer"
+      {/* Decorative Elements */}
+      <div className="hidden lg:block absolute right-12 bottom-12 rotate-90 origin-right max-w-xs text-slate-400 text-xs uppercase tracking-[0.5em] font-medium">
+        Premium Ladies Wear • Azam Market • Lahore
+      </div>
+
+      {/* Animated Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:block"
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <div className="w-8 h-12 border-2 border-white rounded-full flex justify-center p-1">
-            <motion.div
-              className="w-2 h-2 bg-white rounded-full"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </div>
-        </motion.div>
-      </Link>
+        <div className="w-px h-16 bg-gradient-to-b from-magenta to-transparent animate-bounce" />
+      </motion.div>
     </section>
   )
 }

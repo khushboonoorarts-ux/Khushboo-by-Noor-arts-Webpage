@@ -4,31 +4,30 @@ import { LOCATION, CONTACT } from '../constants'
 
 const Location = () => {
   return (
-    <section id="location" className="py-20 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-4">
+    <section id="location" className="relative py-12 md:py-24 overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="max-w-4xl mx-auto text-center mb-10 md:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-magenta dark:text-gold mb-3 sm:mb-4">
+          <h2 className="section-title">
             {LOCATION.heading}
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
             {LOCATION.description}
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Map */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Map Section */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="rounded-2xl overflow-hidden shadow-2xl h-[300px] sm:h-[400px] md:h-[500px]"
+            transition={{ duration: 1 }}
+            className="rounded-[2.5rem] overflow-hidden shadow-2xl h-[400px] md:h-[600px] border-8 border-white dark:border-white/5"
           >
             <iframe
               src={LOCATION.mapEmbedUrl}
@@ -38,71 +37,80 @@ const Location = () => {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title={`${CONTACT.address.full} Location`}
-              className="w-full h-full"
+              className="w-full h-full grayscale-0 md:grayscale md:hover:grayscale-0 transition-all duration-700"
             />
           </motion.div>
 
-          {/* Location Details */}
+          {/* Location Info Section */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
+            transition={{ duration: 1 }}
+            className="grid gap-6"
           >
-            <div className="bg-blush-pink dark:bg-gray-800 rounded-2xl p-5 sm:p-6 shadow-lg">
-              <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
-                <FaMapMarkerAlt className="text-xl sm:text-2xl text-magenta dark:text-gold mt-1" />
+            {/* Address Card */}
+            <div className="glass p-8 rounded-3xl relative overflow-hidden group hover:-translate-y-1 transition-transform">
+              <div className="flex gap-6 items-start">
+                <div className="p-4 rounded-2xl bg-magenta/10 text-magenta group-hover:bg-magenta group-hover:text-white transition-colors">
+                  <FaMapMarkerAlt size={24} />
+                </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-serif text-gray-800 dark:text-white mb-1 sm:mb-2">
-                    Address
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-                    {CONTACT.address.full}<br />
+                  <h3 className="text-xl font-serif text-slate-800 dark:text-white mb-2">Location</h3>
+                  <p className="text-slate-600 dark:text-slate-400">
+                    {CONTACT.address.full}
+                  </p>
+                  <p className="text-sm text-slate-400 mt-2 italic">
                     {CONTACT.address.directions}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-blush-pink dark:bg-gray-800 rounded-2xl p-5 sm:p-6 shadow-lg">
-              <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
-                <FaClock className="text-xl sm:text-2xl text-magenta dark:text-gold mt-1" />
+            {/* Hours Card */}
+            <div className="glass p-8 rounded-3xl relative overflow-hidden group hover:-translate-y-1 transition-transform">
+              <div className="flex gap-6 items-start">
+                <div className="p-4 rounded-2xl bg-gold/10 text-gold group-hover:bg-gold group-hover:text-white transition-colors">
+                  <FaClock size={24} />
+                </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-serif text-gray-800 dark:text-white mb-1 sm:mb-2">
-                    Operating Hours
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
-                    Daily: {CONTACT.hours.daily}<br />
+                  <h3 className="text-xl font-serif text-slate-800 dark:text-white mb-2">Operating Hours</h3>
+                  <p className="text-slate-600 dark:text-slate-400">
+                    Daily: {CONTACT.hours.daily}
+                  </p>
+                  <p className="text-sm text-slate-400 mt-2">
                     {CONTACT.hours.description}
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-blush-pink dark:bg-gray-800 rounded-2xl p-5 sm:p-6 shadow-lg">
-              <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
-                <FaCar className="text-xl sm:text-2xl text-magenta dark:text-gold mt-1" />
+            {/* Travel Card */}
+            <div className="glass p-8 rounded-3xl relative overflow-hidden group hover:-translate-y-1 transition-transform">
+              <div className="flex gap-6 items-start">
+                <div className="p-4 rounded-2xl bg-emerald/10 text-emerald group-hover:bg-emerald group-hover:text-white transition-colors">
+                  <FaCar size={24} />
+                </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-serif text-gray-800 dark:text-white mb-1 sm:mb-2">
-                    Parking & Directions
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 whitespace-pre-line">
+                  <h3 className="text-xl font-serif text-slate-800 dark:text-white mb-2">Accessibility</h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                     {LOCATION.parkingInfo}
                   </p>
                 </div>
               </div>
             </div>
 
-            <a
-              href={LOCATION.directionsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 sm:gap-3 bg-magenta hover:bg-magenta/90 dark:bg-gold dark:hover:bg-gold/90 text-white px-5 py-3 sm:px-6 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all transform hover:scale-105 shadow-lg"
-            >
-              <FaDirections />
-              Get Directions
-            </a>
+            <div className="pt-4">
+              <a
+                href={LOCATION.directionsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-premium inline-flex items-center gap-3 no-underline shadow-xl"
+              >
+                <FaDirections size={20} />
+                Navigate to Store
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>

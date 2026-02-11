@@ -1,88 +1,123 @@
 import { motion } from 'framer-motion'
-import { FaBoxes, FaPalette, FaGem } from 'react-icons/fa'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import { BULK_OFFERINGS } from '../constants'
 
 const BulkOfferings = () => {
-  const iconMap = {
-    'Stitched Elegance': FaBoxes,
-    'Unstitched Masterpieces': FaPalette,
-    'Diverse Fabric Range': FaGem,
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
+    pauseOnHover: false,
+    cssEase: "cubic-bezier(0.4, 0, 0.2, 1)",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   }
 
-  const offerings = BULK_OFFERINGS.offerings.map(offering => ({
-    ...offering,
-    icon: iconMap[offering.title] || FaBoxes,
-  }))
+  const offerings = BULK_OFFERINGS.offerings
 
   return (
-    <section id="bulk-offerings" className="py-20 bg-gradient-to-b from-ivory to-blush-pink dark:from-dark-bg dark:to-gray-900">
-      <div className="container mx-auto px-4">
+    <section id="bulk-offerings" className="relative py-12 md:py-24 overflow-hidden">
+      {/* Background Decorative Element */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-[100px] -z-10" />
+
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="max-w-4xl mx-auto text-center mb-10 md:mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-magenta dark:text-gold mb-3 sm:mb-4">
+          <h2 className="section-title">
             {BULK_OFFERINGS.heading}
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
             {BULK_OFFERINGS.description}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {offerings.map((offering, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, delay: index * 0.15 }}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300"
-            >
-              <div className="relative h-60 overflow-hidden">
-                <img
-                  src={offering.image}
-                  alt={offering.title}
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <offering.icon className="text-5xl text-white opacity-80" />
-                </div>
+        <div className="offerings-slider-container pb-16">
+          <Slider {...sliderSettings}>
+            {offerings.map((offering, index) => (
+              <div key={`offering-${offering.title}-${index}`} className="px-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.2 }}
+                  className="flex flex-col items-center text-center"
+                >
+                  <div className="relative group mb-8">
+                    {/* Circle Border/Glow */}
+                    <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl group-hover:bg-gold/40 transition-all duration-500 scale-110" />
+
+                    {/* Main Circle Image */}
+                    <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-gold/30 p-2 glass overflow-hidden transition-transform duration-700 group-hover:scale-105">
+                      <div className="w-full h-full rounded-full overflow-hidden border-2 border-gold/50">
+                        <img
+                          src={offering.image}
+                          alt={offering.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Decorative Ring */}
+                    <div className="absolute -inset-2 border border-gold/10 rounded-full scale-110 animate-[spin_10s_linear_infinite]" />
+                  </div>
+
+                  <h3 className="text-2xl font-serif text-slate-800 dark:text-white mb-3 tracking-wide">
+                    {offering.title}
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 max-w-xs mx-auto leading-relaxed">
+                    {offering.description}
+                  </p>
+                </motion.div>
               </div>
-              <div className="p-6 sm:p-8 text-center">
-                <h3 className="text-xl sm:text-2xl font-serif text-gray-800 dark:text-white mb-2 sm:mb-3">
-                  {offering.title}
-                </h3>
-                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-                  {offering.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </Slider>
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center mt-16"
+          className="text-center mt-12 md:mt-20"
         >
-          <p className="text-base sm:text-xl font-medium text-gray-700 dark:text-gray-300 mb-4 sm:mb-6">
-            {BULK_OFFERINGS.cta.text}
-          </p>
-          <a
-            href={BULK_OFFERINGS.cta.link}
-            className="inline-block bg-magenta hover:bg-magenta/90 dark:bg-gold dark:hover:bg-gold/90 text-white px-6 py-3 sm:px-10 sm:py-4 rounded-full font-semibold text-base sm:text-lg transition-all transform hover:scale-105 shadow-lg"
-          >
-            {BULK_OFFERINGS.cta.buttonText}
-          </a>
+          <div className="glass inline-block px-10 py-8 rounded-3xl border-gold/20 dark:border-gold/10 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gold/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+            <p className="relative z-10 text-xl text-slate-700 dark:text-slate-200 mb-8 max-w-xl mx-auto italic font-serif">
+              "{BULK_OFFERINGS.cta.text}"
+            </p>
+            <a
+              href={BULK_OFFERINGS.cta.link}
+              className="btn-premium relative z-10"
+            >
+              {BULK_OFFERINGS.cta.buttonText}
+            </a>
+          </div>
         </motion.div>
       </div>
+
+
     </section>
   )
 }
