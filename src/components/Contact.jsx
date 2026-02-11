@@ -92,9 +92,9 @@ const Contact = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mb-10 md:mb-16"
+          className="max-w-3xl mb-10 md:mb-16 text-center md:text-left mx-auto md:ml-0"
         >
-          <h2 className="section-title !text-left !ml-0 after:!left-0 after:!translate-x-0">
+          <h2 className="section-title md:!text-left md:!ml-0 md:after:!left-0 md:after:!translate-x-0">
             {CONTACT_SECTION.heading}
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -117,7 +117,7 @@ const Contact = () => {
               <div className="space-y-6">
                 <a
                   href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}
-                  className="flex items-center gap-6 group no-underline"
+                  className="flex flex-col md:flex-row items-center gap-4 md:gap-6 group no-underline text-center md:text-left"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-magenta/10 text-magenta flex items-center justify-center group-hover:bg-magenta group-hover:text-white transition-all duration-300">
                     <FaPhone size={20} />
@@ -132,7 +132,7 @@ const Contact = () => {
                   href={`https://wa.me/${CONTACT.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-6 group no-underline"
+                  className="flex flex-col md:flex-row items-center gap-4 md:gap-6 group no-underline text-center md:text-left"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-emerald/10 text-emerald flex items-center justify-center group-hover:bg-emerald group-hover:text-white transition-all duration-300">
                     <FaWhatsapp size={24} />
@@ -145,7 +145,7 @@ const Contact = () => {
 
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="flex items-center gap-6 group no-underline"
+                  className="flex flex-col md:flex-row items-center gap-4 md:gap-6 group no-underline text-center md:text-left"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-gold/10 text-gold flex items-center justify-center group-hover:bg-gold group-hover:text-white transition-all duration-300">
                     <FaEnvelope size={22} />
@@ -160,8 +160,8 @@ const Contact = () => {
               </div>
 
               <div className="mt-12 pt-10 border-t border-slate-200 dark:border-slate-700">
-                <p className="text-sm text-slate-400 uppercase tracking-widest font-medium mb-6">Social Gallery</p>
-                <div className="flex gap-4">
+                <p className="text-sm text-slate-400 uppercase tracking-widest font-medium mb-6 text-center md:text-left">Social Gallery</p>
+                <div className="flex gap-4 justify-center md:justify-start">
                   {Object.entries(SOCIAL_LINKS).map(([key, url]) => {
                     const Icon = getSocialIcon(key)
                     const classes = getSocialClasses(key)
