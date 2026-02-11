@@ -53,9 +53,9 @@ export const HERO = {
   buttonLink: 'contact',
   images: [
     '/assets/Hero-sec-img-3.webp',
-    '/assets/Hero-sec-img-2.webp',
     '/assets/Hero-sec-img-1.webp',
     '/assets/Hero-sec-img-4.webp',
+    '/assets/Hero-sec-img-2.webp',
     '/assets/Hero-sec-img-5.webp',
   ],
 }

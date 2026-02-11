@@ -107,6 +107,9 @@ const Hero = () => {
       >
         <div className="w-px h-16 bg-gradient-to-b from-magenta to-transparent animate-bounce" />
       </motion.div>
+
+      {/* Section Transition Fade */}
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ivory dark:from-[#05080f] to-transparent z-[25] pointer-events-none" />
     </section>
   )
 }

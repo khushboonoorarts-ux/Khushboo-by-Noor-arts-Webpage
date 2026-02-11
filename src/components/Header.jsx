@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-scroll'
 import { HiMenuAlt3, HiX } from 'react-icons/hi'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -7,17 +7,32 @@ import { NAV_ITEMS, BUSINESS_NAME } from '../constants'
 const Header = ({ darkMode, toggleDarkMode }) => {
   const [navOpen, setNavOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const headerRef = useRef(null)
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
     }
+    const handleClickOutside = (event) => {
+      if (headerRef.current && !headerRef.current.contains(event.target)) {
+        setNavOpen(false)
+      }
+    }
+
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    if (navOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [navOpen])
 
   return (
     <header
+      ref={headerRef}
       className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl transition-all duration-500 rounded-2xl md:rounded-full ${scrolled ? 'glass py-3' : 'bg-transparent py-5'
         }`}
     >
